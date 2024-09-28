@@ -1,9 +1,10 @@
 import React from 'react';
+import colors from "./config/color.json"
 
 function App() {
   return (
     <div>
-      Test
+      <h1 style={{color: colors.navy}}> Test </h1>
     </div>
   );
 }
