@@ -1,25 +1,38 @@
 import React from "react";
-import colors from "../../config/color.json";
-import { Box, Button, Flex, VStack } from "@chakra-ui/react";
+import { Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
 
 const Sidebar: React.FC = () => {
 	return (
-		<Box width="100%" height="100vh" p={4}>
-			<Flex height="100vh" direction="column">
-				<Box width="100%" p={4}>
-					<Box fontSize="2xl" fontWeight="bold" mb={4}>
-						타이틀
-					</Box>
-					<VStack align="stretch">
-						<Button variant="ghost">Overview</Button>
-						<Button variant="ghost">Add Problem</Button>
-						<Button variant="ghost">MyPage</Button>
-						<Button variant="ghost">Github</Button>
-					</VStack>
-				</Box>
-				<Button variant="link">로그아웃</Button>
+		<Flex height="100vh" direction="column" alignItems="center">
+			<Flex mt={6} direction="column" alignItems="center">
+				<Text fontSize="4xl" color="navy">
+					알고 풀자
+				</Text>
+				<Text fontSize="lg" color="lightGray">
+					AlgoSolve
+				</Text>
 			</Flex>
-		</Box>
+			<Divider mt={1} />
+			<VStack width="100%" align="stretch" spacing={4} mt={6}>
+				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
+					Overview
+				</Button>
+				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
+					Add Problem
+				</Button>
+				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
+					MyPage
+				</Button>
+				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
+					Github
+				</Button>
+			</VStack>
+			<Flex mt="auto" mb={20}>
+				<Button variant="link" color="black">
+					로그아웃
+				</Button>
+			</Flex>
+		</Flex>
 	);
 };
 

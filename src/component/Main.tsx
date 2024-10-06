@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import Sidebar from "./layout/Sidebar";
+import Sidebar from "./Sidebar";
 
 const Main: React.FC = () => {
 	return (
-		<Flex height="100vh" width="100%">
-			<Box margin={2} w="16%" h="100%">
+		<Flex>
+			<Box margin={2} w="16%" h="100%" background="lightBeige">
 				<Sidebar />
 			</Box>
 			<Box w="42%" h="100%">
