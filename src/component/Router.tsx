@@ -5,7 +5,7 @@ import Loading from "./Loading";
 
 const Router: React.FC = () => {
 	return (
-		<BrowserRouter basename="algo-solve">
+		<BrowserRouter basename="algo_solve">
 			<Routes>
 				<Route path="/" element={<Loading />} />
 				<Route path="/main" element={<Main />} />
