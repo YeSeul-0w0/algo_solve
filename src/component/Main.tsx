@@ -5,10 +5,16 @@ import Sidebar from "./Sidebar";
 const Main: React.FC = () => {
 	return (
 		<Flex>
-			<Box margin={2} w="16%" h="100%" background="lightBeige">
+			<Box
+				margin={2}
+				w="14%"
+				h="100%"
+				background="lightBeige"
+				borderRadius="25px"
+			>
 				<Sidebar />
 			</Box>
-			<Box w="42%" h="100%">
+			<Box w="43%" h="100%">
 				<Flex flex={1} direction="column" p={4}>
 					<Text fontSize="xl" mb={4}>
 						Left
@@ -16,7 +22,7 @@ const Main: React.FC = () => {
 					<Box>Content</Box>
 				</Flex>
 			</Box>
-			<Box w="42%" h="100%">
+			<Box w="43%" h="100%">
 				<Flex flex={1} direction="column" p={4}>
 					<Text fontSize="xl" mb={4}>
 						Right
