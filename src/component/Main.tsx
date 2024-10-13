@@ -15,9 +15,6 @@ const Main: React.FC = () => {
 			<GridItem rowSpan={2} bg="lightBeige" m={1} borderRadius="20px">
 				<Sidebar />
 			</GridItem>
-			<GridItem marginTop={9} marginLeft={3} marginBottom={3}>
-				<Title />
-			</GridItem>
 			<Outlet />
 		</Grid>
 	);
