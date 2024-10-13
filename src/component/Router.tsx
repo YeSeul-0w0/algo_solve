@@ -8,7 +8,7 @@ const Router: React.FC = () => {
 		<BrowserRouter basename="algo_solve">
 			<Routes>
 				<Route path="/" element={<Loading />} />
-				<Route path="/main" element={<Main />} />
+				<Route path="/main" element={<Main />}></Route>
 			</Routes>
 		</BrowserRouter>
 	);
