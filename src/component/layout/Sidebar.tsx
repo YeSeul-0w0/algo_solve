@@ -1,7 +1,13 @@
 import React from "react";
 import { Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
+	const navigate = useNavigate();
+
+	const overviewHandler = () => {
+		navigate("overview"); // '/a' 경로로 이동
+	};
 	return (
 		<Flex height="100%" direction="column" alignItems="center">
 			<Flex mt={6} direction="column" alignItems="center">
@@ -14,7 +20,12 @@ const Sidebar: React.FC = () => {
 			</Flex>
 			<Divider mt={1} />
 			<VStack width="100%" align="stretch" spacing={4} mt={6}>
-				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
+				<Button
+					variant="ghost"
+					color="navy"
+					_hover={{ bg: "beige" }}
+					onClick={overviewHandler}
+				>
 					Overview
 				</Button>
 				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
