@@ -2,9 +2,7 @@ import React from "react";
 import { Divider, Flex, Heading, Text } from "@chakra-ui/react";
 
 const Title: React.FC = () => {
-	const [currentDate, setCurrentDate] = React.useState<string>(() =>
-		new Date().toLocaleDateString()
-	);
+	const currentDate = new Date().toLocaleDateString();
 	return (
 		<Flex direction="column">
 			<Heading fontSize="xl" color="navy" marginBottom={2}>
