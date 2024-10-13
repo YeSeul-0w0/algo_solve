@@ -3,7 +3,7 @@ import { Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
 
 const Sidebar: React.FC = () => {
 	return (
-		<Flex height="100vh" direction="column" alignItems="center">
+		<Flex height="100%" direction="column" alignItems="center">
 			<Flex mt={6} direction="column" alignItems="center">
 				<Text fontSize="4xl" color="navy">
 					알고 풀자

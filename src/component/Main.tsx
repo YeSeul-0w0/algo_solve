@@ -1,36 +1,22 @@
 import React from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import Sidebar from "./layout/Sidebar";
 
 const Main: React.FC = () => {
 	return (
-		<Flex>
-			<Box
-				margin={2}
-				w="14%"
-				h="100%"
-				background="lightBeige"
-				borderRadius="25px"
-			>
+		<Grid
+			height="100vh"
+			width="100%"
+			templateRows="1fr 10fr"
+			templateColumns="0.7fr 2fr 2fr"
+		>
+			<GridItem rowSpan={2} bg="lightBeige" m={1} borderRadius="20px">
 				<Sidebar />
-			</Box>
-			<Box w="43%" h="100%">
-				<Flex flex={1} direction="column" p={4}>
-					<Text fontSize="xl" mb={4}>
-						Left
-					</Text>
-					<Box>Content</Box>
-				</Flex>
-			</Box>
-			<Box w="43%" h="100%">
-				<Flex flex={1} direction="column" p={4}>
-					<Text fontSize="xl" mb={4}>
-						Right
-					</Text>
-					<Box>Content</Box>
-				</Flex>
-			</Box>
-		</Flex>
+			</GridItem>
+			<GridItem colSpan={2}>타이틀</GridItem>
+			<GridItem>Left</GridItem>
+			<GridItem>Right</GridItem>
+		</Grid>
 	);
 };
 
