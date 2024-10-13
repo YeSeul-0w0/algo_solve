@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Sidebar from "./layout/Sidebar";
+import Title from "./Title/Title";
 
 const Main: React.FC = () => {
 	return (
@@ -13,7 +14,9 @@ const Main: React.FC = () => {
 			<GridItem rowSpan={2} bg="lightBeige" m={1} borderRadius="20px">
 				<Sidebar />
 			</GridItem>
-			<GridItem colSpan={2}>타이틀</GridItem>
+			<GridItem colSpan={2} marginTop={9} marginLeft={3} marginBottom={3}>
+				<Title />
+			</GridItem>
 			<GridItem>Left</GridItem>
 			<GridItem>Right</GridItem>
 		</Grid>
