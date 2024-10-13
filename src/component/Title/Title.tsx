@@ -1,7 +1,11 @@
 import React from "react";
 import { Divider, Flex, Heading, Text } from "@chakra-ui/react";
 
-const Title: React.FC = () => {
+interface Props {
+	description: string;
+}
+
+const Title: React.FC<Props> = ({ description }) => {
 	const currentDate = new Date().toLocaleDateString();
 	return (
 		<Flex direction="column">
@@ -10,7 +14,7 @@ const Title: React.FC = () => {
 			</Heading>
 			<Divider width="45%" />
 			<Text fontSize="md" marginTop={2}>
-				000님, (변경내용)
+				000님, {description}
 			</Text>
 		</Flex>
 	);
