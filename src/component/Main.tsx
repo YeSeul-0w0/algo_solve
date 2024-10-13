@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import Sidebar from "./Sidebar";
+import Sidebar from "./layout/Sidebar";
 
 const Main: React.FC = () => {
 	return (
