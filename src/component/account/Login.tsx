@@ -7,6 +7,8 @@ import {
 	Button,
 	Flex
 } from "@chakra-ui/react";
+
+const Login: React.FC = () => {
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +26,7 @@ const Login: React.FC = () => {
 	};
 
 	// Todo: 서버 개발시 기능 개발 필
+
 
 	return (
 		<Box w="50%">
