@@ -5,8 +5,7 @@ import {
 	FormControl,
 	FormLabel,
 	Button,
-	Flex,
-	GridItem
+	Flex
 } from "@chakra-ui/react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +22,8 @@ const Login: React.FC = () => {
 	const handleSignUp = () => {
 		navigate("/sign_up");
 	};
+
+	// Todo: 서버 개발시 기능 개발 필
 
 	return (
 		<Box w="50%">
