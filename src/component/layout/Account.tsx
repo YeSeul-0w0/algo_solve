@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, GridItem, Text } from "@chakra-ui/react";
-import Login from "../account/Login";
+import { Outlet } from "react-router-dom";
 
 const Account: React.FC = () => {
 	return (
@@ -32,7 +32,7 @@ const Account: React.FC = () => {
 				alignItems="center"
 				justifyContent="center"
 			>
-				<Login />
+				<Outlet />
 			</GridItem>
 		</Grid>
 	);
