@@ -23,7 +23,17 @@ const Account: React.FC = () => {
 					AlgoSolve
 				</Text>
 			</GridItem>
-			<Outlet />
+			<GridItem
+				borderLeftWidth="4px"
+				borderLeftColor="deepBeige"
+				borderLeftStyle="solid"
+				display="flex"
+				flexDirection="column"
+				alignItems="center"
+				justifyContent="center"
+			>
+				<Outlet />
+			</GridItem>
 		</Grid>
 	);
 };
