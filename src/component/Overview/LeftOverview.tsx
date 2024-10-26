@@ -10,7 +10,9 @@ import {
 	Th,
 	Tr,
 	Tbody,
-	Td
+	Td,
+	Input,
+	Flex
 } from "@chakra-ui/react";
 
 const LeftOverview: React.FC = () => {
@@ -122,6 +124,26 @@ const LeftOverview: React.FC = () => {
 						</Tr>
 					</Tbody>
 				</Table>
+				<Box border="1px" borderColor="beige" borderRadius={15} p={3} mt={6}>
+					<Table>
+						<Thead>
+							<Tr>
+								<Th textAlign="center" fontWeight="semibold" fontSize="md">
+									Name
+								</Th>
+								<Th textAlign="center" fontWeight="semibold" fontSize="md">
+									Attend
+								</Th>
+								<Th textAlign="center" fontWeight="semibold" fontSize="md">
+									BackJoon Solved
+								</Th>
+								<Th textAlign="center" fontWeight="semibold" fontSize="md">
+									Programmers Solved
+								</Th>
+							</Tr>
+						</Thead>
+					</Table>
+				</Box>
 			</Box>
 		</Box>
 	);
