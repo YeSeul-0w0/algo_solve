@@ -1,6 +1,6 @@
 const CalculatingDate = (): {
 	current: string;
-	next: string;
+	previous: string;
 } => {
 	const today = new Date();
 	const dayOfWeek = today.getDay();
@@ -13,7 +13,7 @@ const CalculatingDate = (): {
 
 	return {
 		current: currentWed.toLocaleDateString(),
-		next: nextWed.toLocaleDateString()
+		previous: nextWed.toLocaleDateString()
 	};
 };
 
