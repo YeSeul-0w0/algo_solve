@@ -65,7 +65,7 @@ const LeftOverview: React.FC = () => {
 				>
 					<GridItem alignContent="center">
 						<Text fontWeight="semibold" fontSize="md">
-							Attend
+							참석
 						</Text>
 					</GridItem>
 					<GridItem colSpan={4} alignContent="center">
@@ -77,11 +77,11 @@ const LeftOverview: React.FC = () => {
 							{isAttend ? "Yes" : "No"}
 						</Button>
 					</GridItem>
-					<Text fontWeight="semibold" fontSize="md">
-						Solved
+					<Text fontWeight="semibold" fontSize="md" alignContent="center">
+						풀이여부
 					</Text>
 					<GridItem colSpan={2} display="flex" gap={5} alignItems="center">
-						<Text fontSize="md">BackJoon</Text>
+						<Text fontSize="md">백준</Text>
 						<Button
 							onClick={handleToggle(setIsSolveB)}
 							{...buttonStyle(isSolveB)}
@@ -90,7 +90,7 @@ const LeftOverview: React.FC = () => {
 						</Button>
 					</GridItem>
 					<GridItem colSpan={2} display="flex" gap={5} alignItems="center">
-						<Text fontSize="md">Programmers</Text>
+						<Text fontSize="md">프로그래머스</Text>
 						<Button
 							onClick={handleToggle(setIsSolveP)}
 							{...buttonStyle(isSolveP)}
@@ -108,13 +108,13 @@ const LeftOverview: React.FC = () => {
 					<Thead>
 						<Tr>
 							<Th textAlign="center" fontWeight="semibold" fontSize="md">
-								Attend
+								참석
 							</Th>
 							<Th textAlign="center" fontWeight="semibold" fontSize="md">
-								BackJoon Solved
+								백준 풀이
 							</Th>
 							<Th textAlign="center" fontWeight="semibold" fontSize="md">
-								Programmers Solved
+								프로그래머스 풀이
 							</Th>
 						</Tr>
 					</Thead>
@@ -135,16 +135,16 @@ const LeftOverview: React.FC = () => {
 						<Thead>
 							<Tr>
 								<Th textAlign="center" fontWeight="semibold" fontSize="md">
-									Name
+									이름
 								</Th>
 								<Th textAlign="center" fontWeight="semibold" fontSize="md">
-									Attend
+									참석
 								</Th>
 								<Th textAlign="center" fontWeight="semibold" fontSize="md">
-									BackJoon Solved
+									백준
 								</Th>
 								<Th textAlign="center" fontWeight="semibold" fontSize="md">
-									Programmers Solved
+									프로그래머스
 								</Th>
 							</Tr>
 						</Thead>
