@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Title from "../Title/Title";
 import LeftOverview from "./LeftOverview";
-import RightOverview from "./RightOverview";
+import RightOverview from "./right/RightOverview";
 
 const Overview: React.FC = () => {
 	return (
