@@ -11,6 +11,22 @@
       {"name": "황00", "attend": "Yes", "backjoon": "Yes", "programmers": "Yes" },
       {"name": "전00", "attend": "Yes", "backjoon": "No", "programmers": "Yes" },
       {"name": "장00", "attend": "No", "backjoon": "No", "programmers": "No" }
+    ],
+    "current_BJ": [
+      {"title": "인구이동", "link": "https://www.acmicpc.net/problem/16234", "level": "골드5"},
+      {"title": "청소년 상어", "link": "https://www.acmicpc.net/problem/19236", "level": "골드2"}
+    ],
+    "current_PG": [
+      {"title": "다리를 지나는 트럭", "link": "https://school.programmers.co.kr/learn/courses/30/lessons/42583", "level": "레벨2"},
+      {"title": "순위", "link": "https://school.programmers.co.kr/learn/courses/30/lessons/49191", "level": "레벨3"}
+    ],
+    "previous_BJ": [
+      {"title": "램프", "link": "https://www.acmicpc.net/problem/1034", "level": "골드4"},
+      {"title": "색종이", "link": "https://www.acmicpc.net/problem/2563", "level": "실버5"}
+    ],
+    "previous_PG": [
+      {"title": "네트워크", "link": "https://school.programmers.co.kr/learn/courses/30/lessons/431623", "level": "레벨3"},
+      {"title": "하샤드 수", "link": "https://school.programmers.co.kr/learn/courses/30/lessons/12947", "level": "레벨1"}
     ]
   }
 }
