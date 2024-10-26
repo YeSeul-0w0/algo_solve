@@ -19,6 +19,7 @@ const Router: React.FC = () => {
 				</Routes>
 			</BrowserRouter>
 		</UserProvider>
+
 	);
 };
 
