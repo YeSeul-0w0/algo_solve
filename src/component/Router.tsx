@@ -5,7 +5,7 @@ import Account from "./layout/Account";
 import Login from "./account/Login";
 import { UserProvider } from "./context/UserContext";
 import SignUp from "./account/SignUp";
-import Overview from "./Overview/Overview";
+import Overview from "./overview/Overview";
 
 const Router: React.FC = () => {
 	return (

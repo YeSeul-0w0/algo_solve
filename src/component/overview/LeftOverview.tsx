@@ -10,9 +10,7 @@ import {
 	Th,
 	Tr,
 	Tbody,
-	Td,
-	Input,
-	Flex
+	Td
 } from "@chakra-ui/react";
 
 const LeftOverview: React.FC = () => {
