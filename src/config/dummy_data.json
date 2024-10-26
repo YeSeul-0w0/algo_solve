@@ -1,0 +1,16 @@
+{
+  "overview": {
+    "total": {
+      "attend": 3,
+      "backjoon": 2,
+      "programmers": 4
+    },
+    "people": [
+      {"name": "안00", "attend": "Yes", "backjoon": "Yes", "programmers": "Yes" },
+      {"name": "신00", "attend": "No", "backjoon": "Yes", "programmers": "Yes" },
+      {"name": "황00", "attend": "Yes", "backjoon": "Yes", "programmers": "Yes" },
+      {"name": "전00", "attend": "Yes", "backjoon": "No", "programmers": "Yes" },
+      {"name": "장00", "attend": "No", "backjoon": "No", "programmers": "No" }
+    ]
+  }
+}

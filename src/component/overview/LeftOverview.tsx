@@ -12,16 +12,29 @@ import {
 	Tbody,
 	Td
 } from "@chakra-ui/react";
+import dummyData from "../../config/dummy_data.json";
+
+interface Person {
+	name: string;
+	attend: string;
+	backjoon: string;
+	programmers: string;
+}
+
+interface DummyUser extends Array<Person> {}
+
+interface Overview {
+	attend: number;
+	backjoon: number;
+	programmers: number;
+}
 
 const LeftOverview: React.FC = () => {
 	const userName: String = "Guest";
 
 	const [isAttend, setIsAttend] = React.useState(false);
-
 	const [isSolveB, setIsSolveB] = React.useState(false);
-
 	const [isSolveP, setIsSolveP] = React.useState(false);
-
 	const handleToggle =
 		(setter: React.Dispatch<React.SetStateAction<boolean>>) => () => {
 			setter(prev => !prev);
@@ -34,6 +47,9 @@ const LeftOverview: React.FC = () => {
 		size: "sm",
 		_hover: { bg: "beige" }
 	});
+
+	const totalDummy = dummyData["overview"]["total"] as Overview;
+	const personDummy = dummyData["overview"]["people"] as DummyUser;
 
 	return (
 		<Box>
@@ -104,21 +120,13 @@ const LeftOverview: React.FC = () => {
 					</Thead>
 					<Tbody>
 						<Tr>
-							<Td textAlign="center">
-								<Text fontWeight="normal" size="sm">
-									5
-								</Text>
-							</Td>
-							<Td textAlign="center">
-								<Text fontWeight="normal" size="sm">
-									2
-								</Text>
-							</Td>
-							<Td textAlign="center">
-								<Text fontWeight="normal" size="sm">
-									5
-								</Text>
-							</Td>
+							{Object.entries(totalDummy).map(([key, value]) => (
+								<Td key={key} textAlign="center">
+									<Text fontWeight="normal" size="sm">
+										{value}
+									</Text>
+								</Td>
+							))}
 						</Tr>
 					</Tbody>
 				</Table>
@@ -140,6 +148,17 @@ const LeftOverview: React.FC = () => {
 								</Th>
 							</Tr>
 						</Thead>
+						<Tbody>
+							{personDummy.map((value, index) => (
+								<Tr key={index}>
+									{["name", "attend", "backjoon", "programmers"].map(field => (
+										<Td key={field} textAlign="center">
+											{value[field as keyof typeof value]}
+										</Td>
+									))}
+								</Tr>
+							))}
+						</Tbody>
 					</Table>
 				</Box>
 			</Box>
