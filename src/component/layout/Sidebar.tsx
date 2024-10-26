@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
 	return (
