@@ -1,19 +1,25 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Main from "./Main";
-import Loading from "./Loading";
-import Overview from "./Overview/Overview";
+import Account from "./layout/Account";
+import Login from "./account/Login";
+import { UserProvider } from "./context/UserContext";
+import SignUp from "./account/SignUp";
 
 const Router: React.FC = () => {
 	return (
-		<BrowserRouter basename="algo_solve">
-			<Routes>
-				<Route path="/" element={<Loading />} />
-				<Route path="/main" element={<Main />}>
-					<Route path="overview" element={<Overview />} />
-				</Route>
-			</Routes>
-		</BrowserRouter>
+		<UserProvider>
+			<BrowserRouter basename="algo_solve">
+				<Routes>
+					<Route path="/" element={<Account />}>
+						<Route index element={<Login />} />
+						<Route path="/sign_up" element={<SignUp />} />
+					</Route>
+					<Route path="/main" element={<Main />} />
+				</Routes>
+			</BrowserRouter>
+		</UserProvider>
+
 	);
 };
 
