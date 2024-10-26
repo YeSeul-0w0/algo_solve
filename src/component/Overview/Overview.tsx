@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Title from "../Title/Title";
 import LeftOverview from "./LeftOverview";
+import RightOverview from "./RightOverview";
 
 const Overview: React.FC = () => {
 	return (
@@ -17,7 +18,9 @@ const Overview: React.FC = () => {
 			<GridItem border="2px" borderColor="beige" borderRadius={15} m={5}>
 				<LeftOverview />
 			</GridItem>
-			<GridItem>Right</GridItem>
+			<GridItem border="2px" borderColor="beige" borderRadius={15} m={5}>
+				<RightOverview />
+			</GridItem>
 		</Grid>
 	);
 };
