@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/algo_solve/static/js/main.04265da6.js",
+    "main.js": "/algo_solve/static/js/main.f339770e.js",
     "index.html": "/algo_solve/index.html",
-    "main.04265da6.js.map": "/algo_solve/static/js/main.04265da6.js.map"
+    "main.f339770e.js.map": "/algo_solve/static/js/main.f339770e.js.map"
   },
   "entrypoints": [
-    "static/js/main.04265da6.js"
+    "static/js/main.f339770e.js"
   ]
 }
