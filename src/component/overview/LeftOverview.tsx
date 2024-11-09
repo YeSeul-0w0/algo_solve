@@ -59,7 +59,7 @@ const LeftOverview: React.FC = () => {
 				</Text>
 				<Grid
 					templateColumns="0.8fr 1fr 1fr 1fr 1fr"
-					templateRows="1fr 1fr"
+					templateRows="1fr 1fr 1fr"
 					p={5}
 					gap={3}
 				>
@@ -96,6 +96,12 @@ const LeftOverview: React.FC = () => {
 							{...buttonStyle(isSolveP)}
 						>
 							{isSolveP ? "Yes" : "No"}
+						</Button>
+					</GridItem>
+					<GridItem colSpan={5} display="flex" justifyContent="flex-end">
+						<Button variant="solid" bg="deepBeige">
+							{" "}
+							등록{" "}
 						</Button>
 					</GridItem>
 				</Grid>
