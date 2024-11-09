@@ -16,7 +16,8 @@ const Login: React.FC = () => {
 
 	const handleGuestLogin = () => {
 		userContext.setUserName("게스트");
-		navigate("/main");
+		userContext.setIsLoggedIn(true);
+		navigate("/");
 	};
 
 	const handleSignUp = () => {
