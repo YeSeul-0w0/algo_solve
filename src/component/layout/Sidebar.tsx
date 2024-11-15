@@ -1,7 +1,42 @@
 import React from "react";
 import { Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
+	const navigate = useNavigate();
+	const currentLocation = useLocation();
+
+	const ROUTE = {
+		overview: "/",
+		addProblem: "/add_problem",
+		myPage: "/my_page",
+		github: "/github"
+	} as const;
+
+	type PathValues = (typeof ROUTE)[keyof typeof ROUTE];
+	type ButtonItem = {
+		label: string;
+		route: PathValues;
+	};
+
+	const buttonList: ButtonItem[] = [
+		{ label: "Overview", route: ROUTE.overview },
+		{ label: "Add Problem", route: ROUTE.addProblem },
+		{ label: "MyPage", route: ROUTE.myPage },
+		{ label: "Github", route: ROUTE.github }
+	];
+
+	const handlePage = (path: PathValues) => {
+		navigate(path);
+	};
+
+	const buttonStyle = (path: PathValues) => ({
+		variant: "ghost",
+		color: "navy",
+		bg: currentLocation.pathname === path ? "deepBeige" : "transparent",
+		_hover: { bg: "beige" }
+	});
+
 	return (
 		<Flex height="100vh" direction="column" alignItems="center">
 			<Flex mt={6} direction="column" alignItems="center">
@@ -14,18 +49,15 @@ const Sidebar: React.FC = () => {
 			</Flex>
 			<Divider mt={1} />
 			<VStack width="100%" align="stretch" spacing={4} mt={6}>
-				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
-					Overview
-				</Button>
-				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
-					Add Problem
-				</Button>
-				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
-					MyPage
-				</Button>
-				<Button variant="ghost" color="navy" _hover={{ bg: "beige" }}>
-					Github
-				</Button>
+				{buttonList.map((button, index) => (
+					<Button
+						key={index}
+						{...buttonStyle(button.route)}
+						onClick={() => handlePage(button.route)}
+					>
+						{button.label}
+					</Button>
+				))}
 			</VStack>
 			<Flex mt="auto" mb={20}>
 				<Button variant="link" color="black">

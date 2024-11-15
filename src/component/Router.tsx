@@ -6,6 +6,9 @@ import Login from "./account/Login";
 import { UserContext } from "./context/UserContext";
 import SignUp from "./account/SignUp";
 import Overview from "./overview/Overview";
+import AddProblem from "./addProblem/AddProblem";
+import MyPage from "./mypage/MyPage";
+import Github from "./github/Github";
 
 const Router: React.FC = () => {
 	const userContext = useContext(UserContext)!;
@@ -16,7 +19,12 @@ const Router: React.FC = () => {
 			<Routes>
 				<Route path="/" element={isLogIn ? <Main /> : <Account />}>
 					{isLogIn ? (
-						<Route index element={<Overview />} />
+						<>
+							<Route index element={<Overview />} />
+							<Route path="/add_problem" element={<AddProblem />} />
+							<Route path="/my_page" element={<MyPage />} />
+							<Route path="/github" element={<Github />} />
+						</>
 					) : (
 						<>
 							<Route index element={<Login />} />
