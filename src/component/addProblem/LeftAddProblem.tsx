@@ -10,7 +10,8 @@ import {
 	Text,
 	Select,
 	FormLabel,
-	Button
+	Button,
+	Flex
 } from "@chakra-ui/react";
 import CalculatingDate from "../../config/CalculatingDate";
 import levelInfo from "../../config/staic_data.json";
@@ -37,6 +38,12 @@ const LeftAddProblem: React.FC = () => {
 		fontSize: "md",
 		alignContent: "center",
 		marginBottom: 3
+	});
+
+	const btnStyle = () => ({
+		variant: "solid",
+		bg: "deepBeige",
+		_hover: { bg: "beige" }
 	});
 
 	const [platform, setPlatform] =
@@ -141,18 +148,19 @@ const LeftAddProblem: React.FC = () => {
 							</Select>
 						</GridItem>
 						<GridItem colSpan={4} display="flex" justifyContent="flex-end">
-							<Button
-								variant="solid"
-								bg="deepBeige"
-								_hover={{ bg: "beige" }}
-								type="submit"
-							>
+							<Button {...btnStyle()} type="submit">
 								{" "}
 								Submit{" "}
 							</Button>
 						</GridItem>
 					</Grid>
 				</form>
+			</Box>
+			<Box mt={5} border="1px" borderColor="beige" borderRadius={15} p={6}>
+				<Flex gap={9}>
+					<Input type="text" placeholder="문제 풀이 여부를 검색하세요" />
+					<Button {...btnStyle()}> 검색 </Button>
+				</Flex>
 			</Box>
 		</Box>
 	);
