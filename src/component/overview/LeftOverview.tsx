@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
 	Button,
 	Box,
@@ -13,6 +13,7 @@ import {
 	Td
 } from "@chakra-ui/react";
 import dummyData from "../../config/dummy_data.json";
+import { UserContext } from "../context/UserContext";
 
 interface Person {
 	name: string;
@@ -30,7 +31,8 @@ interface Overview {
 }
 
 const LeftOverview: React.FC = () => {
-	const userName: String = "Guest";
+	const userContext = useContext(UserContext)!;
+	const userName: String = userContext.userName;
 
 	const [isAttend, setIsAttend] = React.useState(false);
 	const [isSolveB, setIsSolveB] = React.useState(false);
