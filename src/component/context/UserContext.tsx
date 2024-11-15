@@ -20,9 +20,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 	const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
 
 	const [userName, setUserName] = useState(storedUserName || "");
-	const [isLoggedIn, setIsLoggedIn] = useState(
-		storedIsLoggedIn === "true" ? true : false
-	);
+	const [isLoggedIn, setIsLoggedIn] = useState(storedIsLoggedIn === "true");
 
 	useEffect(() => {
 		if (userName) {
