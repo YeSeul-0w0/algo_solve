@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Title from "../title/Title";
 import LeftAddProblem from "./LeftAddProblem";
+import RightAddProblem from "./RightAddProblem";
 
 const AddProblem: React.FC = () => {
 	return (
@@ -17,7 +18,7 @@ const AddProblem: React.FC = () => {
 				<LeftAddProblem />
 			</GridItem>
 			<GridItem border="2px" borderColor="beige" borderRadius={15} m={5}>
-				Right
+				<RightAddProblem />
 			</GridItem>
 		</Grid>
 	);
