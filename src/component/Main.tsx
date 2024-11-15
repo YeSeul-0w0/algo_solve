@@ -5,7 +5,13 @@ import { Outlet } from "react-router-dom";
 
 const Main: React.FC = () => {
 	return (
-		<Grid height="100vh" templateRows="1fr 10fr" templateColumns="2fr 10fr">
+		<Grid
+			height="100vh"
+			width="100vw"
+			position="fixed"
+			templateRows="1fr 10fr"
+			templateColumns="2fr 10fr"
+		>
 			<GridItem rowSpan={2} bg="lightBeige" m={1} borderRadius="20px">
 				<Sidebar />
 			</GridItem>
