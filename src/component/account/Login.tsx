@@ -15,7 +15,7 @@ const Login: React.FC = () => {
 	const userContext = useContext(UserContext)!;
 
 	const handleGuestLogin = () => {
-		userContext.setUserName("게스트");
+		userContext.setUserName("Guest");
 		userContext.setIsLoggedIn(true);
 		navigate("/");
 	};

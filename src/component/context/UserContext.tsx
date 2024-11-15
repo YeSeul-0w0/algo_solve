@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, ReactNode, useEffect } from "react";
 
 interface UserContextProps {
 	userName: string;
@@ -16,8 +16,23 @@ interface UserProviderProps {
 }
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-	const [userName, setUserName] = useState("");
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const storedUserName = localStorage.getItem("userName");
+	const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+
+	const [userName, setUserName] = useState(storedUserName || "");
+	const [isLoggedIn, setIsLoggedIn] = useState(
+		storedIsLoggedIn === "true" ? true : false
+	);
+
+	useEffect(() => {
+		if (userName) {
+			localStorage.setItem("userName", userName);
+		}
+	}, [userName]);
+
+	useEffect(() => {
+		localStorage.setItem("isLoggedIn", String(isLoggedIn));
+	}, [isLoggedIn]);
 
 	return (
 		<UserContext.Provider

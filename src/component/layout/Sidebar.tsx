@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const Sidebar: React.FC = () => {
 	const navigate = useNavigate();
@@ -37,6 +38,16 @@ const Sidebar: React.FC = () => {
 		_hover: { bg: "beige" }
 	});
 
+	const userContext = useContext(UserContext)!;
+
+	const handleLogout = () => {
+		localStorage.removeItem("userName");
+		localStorage.removeItem("isLoggedIn");
+
+		userContext.setUserName("");
+		userContext.setIsLoggedIn(false);
+	};
+
 	return (
 		<Flex height="100vh" direction="column" alignItems="center">
 			<Flex mt={6} direction="column" alignItems="center">
@@ -60,7 +71,7 @@ const Sidebar: React.FC = () => {
 				))}
 			</VStack>
 			<Flex mt="auto" mb={20}>
-				<Button variant="link" color="black">
+				<Button variant="link" color="black" onClick={handleLogout}>
 					로그아웃
 				</Button>
 			</Flex>
