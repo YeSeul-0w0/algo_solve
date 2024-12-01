@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { useContext } from "react";
-import Main from "./Main";
+import MainLayout from "./layout/MainLayout";
 import Account from "./layout/Account";
 import Login from "./account/Login";
 import { UserContext } from "./context/UserContext";
@@ -17,7 +17,7 @@ const Router: React.FC = () => {
 	return (
 		<BrowserRouter basename="algo_solve">
 			<Routes>
-				<Route path="/" element={isLogIn ? <Main /> : <Account />}>
+				<Route path="/" element={isLogIn ? <MainLayout /> : <Account />}>
 					{isLogIn ? (
 						<>
 							<Route index element={<Overview />} />
