@@ -3,22 +3,22 @@ import { Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
+const ROUTE = {
+	overview: "/",
+	addProblem: "/add_problem",
+	myPage: "/my_page",
+	github: "/github"
+} as const;
+
+type PathValues = (typeof ROUTE)[keyof typeof ROUTE];
+type ButtonItem = {
+	label: string;
+	route: PathValues;
+};
+
 const Sidebar: React.FC = () => {
 	const navigate = useNavigate();
 	const currentLocation = useLocation();
-
-	const ROUTE = {
-		overview: "/",
-		addProblem: "/add_problem",
-		myPage: "/my_page",
-		github: "/github"
-	} as const;
-
-	type PathValues = (typeof ROUTE)[keyof typeof ROUTE];
-	type ButtonItem = {
-		label: string;
-		route: PathValues;
-	};
 
 	const buttonList: ButtonItem[] = [
 		{ label: "Overview", route: ROUTE.overview },
