@@ -20,8 +20,7 @@ export interface LoginResponse {
 // testPassword
 export const login = async (data: LoginRequest): Promise<LoginResponse> => {
 	try {
-    console.log("data, ", data);
-		const response = await DefaultAPI.post<LoginResponse>("/auth/login", data);
+		const response = await DefaultAPI.post<LoginResponse>("/auth/login", data, {withCredentials: true,});
     console.log(response);
 		return response.data;
 	} catch (error) {
