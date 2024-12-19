@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
-import Title from "../title/Title";
+import Title from "../layout/Title";
 import LeftOverview from "./LeftOverview";
 import RightOverview from "./right/RightOverview";
 
