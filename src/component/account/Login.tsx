@@ -41,7 +41,7 @@ const Login: React.FC = () => {
 
 	// test1
 	// testPassword
-	const loginAPI = async (data: LoginRequest): Promise<void> => {
+	const APILogin = async (data: LoginRequest): Promise<void> => {
 		try {
 			const response = await DefaultAPI.post<LoginResponse>(
 				"/auth/login",
@@ -67,7 +67,7 @@ const Login: React.FC = () => {
 	const handleLogin = async () => {
 		setLoading(true);
 		try {
-			await loginAPI(LoginInfo);
+			await APILogin(LoginInfo);
 			userContext.setIsLoggedIn(true);
 			navigate("/");
 		} catch (error) {
