@@ -2,11 +2,25 @@ import React, { ChangeEvent, useContext, useState } from "react";
 import { Box, Button, Flex, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { login, LoginRequest } from "../../api/Login";
+import DefaultAPI from "../../api/DefaultAPI";
+import axios from "axios";
+
+
+interface LoginRequest {
+  userId: string;
+  password: string;
+}
+
+interface LoginResponse {
+  accessToken: string;
+}
+
+
 
 const Login: React.FC = () => {
   const [userId, setUserId] = useState<string>("")
   const [userPassword, setUserPassword] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
 	const navigate = useNavigate();
 	const userContext = useContext(UserContext)!;
@@ -29,13 +43,38 @@ const Login: React.FC = () => {
     setUserPassword(event.target.value);
   }
 
+  // test1
+ // testPassword
+  const loginAPI = async (data: LoginRequest): Promise<void> => {
+    try {
+      const response = await DefaultAPI.post<LoginResponse>("/auth/login", data, {withCredentials: true,});
+      userContext.setAccessToken(response.data.accessToken);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Axios Error:", error.response?.data || error.message);
+      } else {
+        console.error("General Error:", error);
+      }
+      throw error;
+    }
+  };
+
   const LoginInfo: LoginRequest = {
     userId: userId,
     password: userPassword,
   }
 
-  const handleLogin = () => {
-    login(LoginInfo)
+  const handleLogin = async () => {
+    setLoading(true);
+    try{
+      await loginAPI(LoginInfo);
+      userContext.setIsLoggedIn(true);
+      navigate("/");
+    } catch (error){
+      console.log("login failed");
+    }finally {
+      setLoading(false);
+    }
   }
 
 	return (
@@ -62,9 +101,8 @@ const Login: React.FC = () => {
 					{" "}
 					Sign Up{" "}
 				</Button>
-				<Button bg="navy" variant="solid" color="white" onClick={handleLogin}>
-					{" "}
-					Login{" "}
+				<Button bg="navy" variant="solid" color="white" onClick={handleLogin} disabled={loading}>
+          Login
 				</Button>
 			</Flex>
 			<Flex marginTop={2} justifyContent="right">

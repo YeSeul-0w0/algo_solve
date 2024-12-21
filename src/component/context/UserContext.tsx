@@ -5,6 +5,9 @@ interface UserContextProps {
 	setUserName: (name: string) => void;
 	isLoggedIn: boolean;
 	setIsLoggedIn: (status: boolean) => void;
+
+  accessToken: string;
+  setAccessToken: (token: string) => void;
 }
 
 export const UserContext = createContext<UserContextProps | undefined>(
@@ -22,6 +25,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 	const [userName, setUserName] = useState(storedUserName || "");
 	const [isLoggedIn, setIsLoggedIn] = useState(storedIsLoggedIn === "true");
 
+  const [accessToken, setAccessToken] = useState("");
+
 	useEffect(() => {
 		if (userName) {
 			localStorage.setItem("userName", userName);
@@ -34,7 +39,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
 	return (
 		<UserContext.Provider
-			value={{ userName, setUserName, isLoggedIn, setIsLoggedIn }}
+			value={{ userName, setUserName, isLoggedIn, setIsLoggedIn, accessToken, setAccessToken }}
 		>
 			{children}
 		</UserContext.Provider>
