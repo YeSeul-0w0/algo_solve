@@ -11,6 +11,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import DefaultAPI from "../../api/DefaultAPI";
 import axios from "axios";
+import OpenToast from "../../config/OpenToast";
 
 interface LoginRequest {
 	userId: string;
@@ -19,6 +20,7 @@ interface LoginRequest {
 
 interface LoginResponse {
 	accessToken: string;
+	nickName: string;
 }
 
 const Login: React.FC = () => {
@@ -39,8 +41,6 @@ const Login: React.FC = () => {
 		navigate("/sign_up");
 	};
 
-	// test1
-	// testPassword
 	const APILogin = async (data: LoginRequest): Promise<void> => {
 		try {
 			const response = await DefaultAPI.post<LoginResponse>(
@@ -49,11 +49,14 @@ const Login: React.FC = () => {
 				{ withCredentials: true }
 			);
 			userContext.setAccessToken(response.data.accessToken);
+			userContext.setUserName(response.data.nickName);
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
-				console.error("Axios Error:", error.response?.data || error.message);
-			} else {
-				console.error("General Error:", error);
+				if (error.response) {
+					OpenToast({ message: error.response.data.message, status: "error" });
+				} else {
+					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+				}
 			}
 			throw error;
 		}
@@ -71,7 +74,7 @@ const Login: React.FC = () => {
 			userContext.setIsLoggedIn(true);
 			navigate("/");
 		} catch (error) {
-			console.log("login failed");
+			OpenToast({ message: "로그인을 실패했습니다.", status: "error" });
 		} finally {
 			setLoading(false);
 		}
