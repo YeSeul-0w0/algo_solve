@@ -15,6 +15,8 @@ import DefaultAPI from "../../api/DefaultAPI";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import OpenToast from "../../config/OpenToast";
+import openToast from "../../config/OpenToast";
 
 interface SignUpRequest {
 	userId: string;
@@ -26,17 +28,18 @@ interface SignUpRequest {
 const passwordRegex =
 	/^(?=.*[a-z])(?=.*\d)(?=.*[~․!@#$%^&*()_\-+=\]{}|\\;:'"<>,.?/]).{8,}$/;
 
-const APISignUp = async (data: SignUpRequest): Promise<number> => {
+const APISignUp = async (data: SignUpRequest): Promise<void> => {
 	try {
 		const response = await DefaultAPI.post("/auth/signup", data, {
 			withCredentials: true
 		});
-		return response.status;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
-			console.error("Axios Error:", error.response?.data || error.message);
-		} else {
-			console.error("General Error:", error);
+			if (error.response) {
+				OpenToast({ message: error.response.data.message, status: "error" });
+			} else {
+				OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+			}
 		}
 		throw error;
 	}
@@ -56,26 +59,38 @@ const SignUp: React.FC = () => {
 	const [verifyFlag, setVerifyFlag] = useState<boolean>(true);
 	const [syncPassword, setSyncPassword] = useState<boolean>(true);
 
-	const checkPasswordVerify = (e: ChangeEvent<HTMLInputElement>) => {
-		const input = e.target.value;
-		setPassword(input);
-		if (passwordRegex.test(input)) {
-			setVerifyFlag(false);
-		} else {
-			setVerifyFlag(true);
-		}
-	};
-
 	useEffect(() => {
 		setSyncPassword(password !== checkPassword);
 	}, [password, checkPassword]);
 
-	const checkDuplicateID = () => {
-		console.log("check ID is already exists");
-		// API 구현시 추가
+	const checkPasswordVerify = (e: ChangeEvent<HTMLInputElement>) => {
+		const input = e.target.value;
+		setPassword(input);
+		if (passwordRegex.test(input)) {
+			setSyncPassword(false);
+		} else {
+			setSyncPassword(true);
+			OpenToast({ message: "비밀번호가 일치하지 않습니다.", status: "error" });
+		}
 	};
 
-	const handleSignUp = () => {
+	const checkDuplicateID = async () => {
+		try {
+			const response = await DefaultAPI.post("/auth/checkId", id);
+			setVerifyFlag(false);
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					OpenToast({ message: error.response.data.message, status: "error" });
+				} else {
+					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+				}
+			}
+			throw error;
+		}
+	};
+
+	const handleSignUp = async () => {
 		// ID 중복 확인 로직 추가 필요
 		// Password 확인
 		if (!verifyFlag && !syncPassword) {
@@ -86,9 +101,13 @@ const SignUp: React.FC = () => {
 					passwordCheck: checkPassword,
 					level: level
 				};
-				APISignUp(signUpInfo);
-				userContext.setIsLoggedIn(true);
-				navigate("/");
+				try {
+					await APISignUp(signUpInfo);
+					userContext.setIsLoggedIn(true);
+					navigate("/");
+				} catch (error) {
+					OpenToast({ message: "회원가입에 실패했습니다.", status: "error" });
+				}
 			}
 		}
 	};
