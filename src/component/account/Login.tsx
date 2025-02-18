@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import DefaultAPI from "../../api/DefaultAPI";
 import axios from "axios";
 import OpenToast from "../../config/OpenToast";
+import openToast from "../../config/OpenToast";
 
 interface LoginRequest {
 	userId: string;
@@ -22,6 +23,15 @@ interface LoginResponse {
 	accessToken: string;
 	nickName: string;
 }
+
+const errorMapping: Record<string, string> = {
+	"인증 정보가 일치 하지 않습니다.": "비밀번호를 확인해주세요.",
+	"사용자를 찾을 수 없습니다.": "아이디를 확인해주세요."
+};
+
+const handleErrorMessage = (serverMessage: string): string => {
+	return errorMapping[serverMessage] || "관리자에게 문의하세요.";
+};
 
 const Login: React.FC = () => {
 	const [userId, setUserId] = useState<string>("");
@@ -53,7 +63,11 @@ const Login: React.FC = () => {
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				if (error.response) {
-					OpenToast({ message: error.response.data.message, status: "error" });
+					const getResponese = error.response.data;
+					openToast({
+						message: handleErrorMessage(getResponese.message),
+						status: "error"
+					});
 				} else {
 					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
 				}
@@ -74,7 +88,7 @@ const Login: React.FC = () => {
 			userContext.setIsLoggedIn(true);
 			navigate("/");
 		} catch (error) {
-			OpenToast({ message: "로그인을 실패했습니다.", status: "error" });
+			setLoading(false);
 		} finally {
 			setLoading(false);
 		}
