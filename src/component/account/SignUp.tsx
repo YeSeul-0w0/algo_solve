@@ -30,7 +30,7 @@ const passwordRegex =
 
 const APISignUp = async (data: SignUpRequest): Promise<void> => {
 	try {
-		const response = await DefaultAPI.post("/auth/signup", data, {
+		await DefaultAPI.post("/auth/signup", data, {
 			withCredentials: true
 		});
 	} catch (error) {
@@ -70,13 +70,12 @@ const SignUp: React.FC = () => {
 			setSyncPassword(false);
 		} else {
 			setSyncPassword(true);
-			OpenToast({ message: "비밀번호가 일치하지 않습니다.", status: "error" });
 		}
 	};
 
 	const checkDuplicateID = async () => {
 		try {
-			const response = await DefaultAPI.post("/auth/checkId", id);
+			await DefaultAPI.post("/auth/checkId", id);
 			setVerifyFlag(false);
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
@@ -99,6 +98,7 @@ const SignUp: React.FC = () => {
 					userId: id,
 					password: password,
 					passwordCheck: checkPassword,
+					nickName: name,
 					level: level
 				};
 				try {
