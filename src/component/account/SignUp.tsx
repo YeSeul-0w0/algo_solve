@@ -114,7 +114,6 @@ const SignUp: React.FC = () => {
 					userContext.setIsLoggedIn(true);
 					navigate("/");
 				} catch (error) {
-					console.log(error);
 					OpenToast({ message: "회원가입에 실패했습니다.", status: "error" });
 				}
 			}
