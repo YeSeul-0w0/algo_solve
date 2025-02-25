@@ -16,6 +16,7 @@ const OpenToast = ({ message, status }: ToastOptions) => {
 	toast({
 		title: message,
 		status: status,
+		position: "bottom",
 		duration: 3000,
 		isClosable: true
 	});
