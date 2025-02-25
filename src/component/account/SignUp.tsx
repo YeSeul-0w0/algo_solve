@@ -25,8 +25,7 @@ interface SignUpRequest {
 	level: number;
 }
 
-const passwordRegex =
-	/^(?=.*[a-z])(?=.*\d)(?=.*[~․!@#$%^&*()_\-+=\]{}|\\;:'"<>,.?/]).{8,}$/;
+const passwordRegex = /^(?=.*[a-zA-Z0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
 const APISignUp = async (data: SignUpRequest): Promise<void> => {
 	try {
@@ -56,8 +55,9 @@ const SignUp: React.FC = () => {
 	const [level, setLevel] = useState<number>(1);
 	const [github, setGithub] = useState<string>("");
 
-	const [verifyFlag, setVerifyFlag] = useState<boolean>(true);
-	const [syncPassword, setSyncPassword] = useState<boolean>(true);
+	const [duplication, setDuplication] = useState<boolean>(false);
+	const [verifyPassword, setVerifyPassword] = useState<boolean>(true);
+	const [syncPassword, setSyncPassword] = useState<boolean>(false);
 
 	useEffect(() => {
 		setSyncPassword(password !== checkPassword);
@@ -67,16 +67,25 @@ const SignUp: React.FC = () => {
 		const input = e.target.value;
 		setPassword(input);
 		if (passwordRegex.test(input)) {
-			setSyncPassword(false);
+			setVerifyPassword(false);
 		} else {
-			setSyncPassword(true);
+			setVerifyPassword(true);
 		}
 	};
 
 	const checkDuplicateID = async () => {
 		try {
-			await DefaultAPI.post("/auth/checkId", id);
-			setVerifyFlag(false);
+			const response = await DefaultAPI.post(
+				"/auth/checkId",
+				{ id: id },
+				{ withCredentials: true }
+			);
+			if (response.status === 200) {
+				setDuplication(false);
+				openToast({ message: "사용 가능한 아이디 입니다.", status: "success" });
+			} else {
+				setDuplication(true);
+			}
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				if (error.response) {
@@ -85,14 +94,13 @@ const SignUp: React.FC = () => {
 					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
 				}
 			}
-			throw error;
 		}
 	};
 
 	const handleSignUp = async () => {
 		// ID 중복 확인 로직 추가 필요
 		// Password 확인
-		if (!verifyFlag && !syncPassword) {
+		if (!duplication && !syncPassword && !verifyPassword) {
 			if (level && id) {
 				const signUpInfo = {
 					userId: id,
@@ -106,6 +114,7 @@ const SignUp: React.FC = () => {
 					userContext.setIsLoggedIn(true);
 					navigate("/");
 				} catch (error) {
+					console.log(error);
 					OpenToast({ message: "회원가입에 실패했습니다.", status: "error" });
 				}
 			}
@@ -144,7 +153,7 @@ const SignUp: React.FC = () => {
 			<FormControl
 				isRequired
 				mb={5}
-				isInvalid={verifyFlag && password.length > 0}
+				isInvalid={verifyPassword && password.length > 0}
 			>
 				<FormLabel color="navy" fontWeight="Bold" fontSize="lg">
 					Password
