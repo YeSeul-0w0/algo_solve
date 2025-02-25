@@ -42,9 +42,10 @@ const Login: React.FC = () => {
 	const userContext = useContext(UserContext)!;
 
 	const handleGuestLogin = () => {
-		userContext.setUserName("Guest");
-		userContext.setIsLoggedIn(true);
-		navigate("/");
+		// userContext.setUserName("Guest");
+		// userContext.setIsLoggedIn(true);
+		// navigate("/");
+		OpenToast({ message: "현재 지원하지 않는 기능입니다.", status: "info" });
 	};
 
 	const handleSignUp = () => {
