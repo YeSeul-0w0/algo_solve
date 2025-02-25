@@ -11,6 +11,8 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import DefaultAPI from "../../api/DefaultAPI";
 import axios from "axios";
+import OpenToast from "../../config/OpenToast";
+import openToast from "../../config/OpenToast";
 
 interface LoginRequest {
 	userId: string;
@@ -19,7 +21,17 @@ interface LoginRequest {
 
 interface LoginResponse {
 	accessToken: string;
+	nickName: string;
 }
+
+const errorMapping: Record<string, string> = {
+	"인증 정보가 일치 하지 않습니다.": "비밀번호를 확인해주세요.",
+	"사용자를 찾을 수 없습니다.": "아이디를 확인해주세요."
+};
+
+const handleErrorMessage = (serverMessage: string): string => {
+	return errorMapping[serverMessage] || "관리자에게 문의하세요.";
+};
 
 const Login: React.FC = () => {
 	const [userId, setUserId] = useState<string>("");
@@ -30,17 +42,16 @@ const Login: React.FC = () => {
 	const userContext = useContext(UserContext)!;
 
 	const handleGuestLogin = () => {
-		userContext.setUserName("Guest");
-		userContext.setIsLoggedIn(true);
-		navigate("/");
+		// userContext.setUserName("Guest");
+		// userContext.setIsLoggedIn(true);
+		// navigate("/");
+		OpenToast({ message: "현재 지원하지 않는 기능입니다.", status: "info" });
 	};
 
 	const handleSignUp = () => {
 		navigate("/sign_up");
 	};
 
-	// test1
-	// testPassword
 	const APILogin = async (data: LoginRequest): Promise<void> => {
 		try {
 			const response = await DefaultAPI.post<LoginResponse>(
@@ -49,11 +60,18 @@ const Login: React.FC = () => {
 				{ withCredentials: true }
 			);
 			userContext.setAccessToken(response.data.accessToken);
+			userContext.setUserName(response.data.nickName);
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
-				console.error("Axios Error:", error.response?.data || error.message);
-			} else {
-				console.error("General Error:", error);
+				if (error.response) {
+					const getResponese = error.response.data;
+					openToast({
+						message: handleErrorMessage(getResponese.message),
+						status: "error"
+					});
+				} else {
+					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+				}
 			}
 			throw error;
 		}
@@ -71,7 +89,7 @@ const Login: React.FC = () => {
 			userContext.setIsLoggedIn(true);
 			navigate("/");
 		} catch (error) {
-			console.log("login failed");
+			setLoading(false);
 		} finally {
 			setLoading(false);
 		}

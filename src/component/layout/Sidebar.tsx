@@ -46,6 +46,7 @@ const Sidebar: React.FC = () => {
 
 		userContext.setUserName("");
 		userContext.setIsLoggedIn(false);
+		userContext.setAccessToken("");
 	};
 
 	return (

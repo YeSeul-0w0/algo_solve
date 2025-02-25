@@ -15,6 +15,8 @@ import DefaultAPI from "../../api/DefaultAPI";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import OpenToast from "../../config/OpenToast";
+import openToast from "../../config/OpenToast";
 
 interface SignUpRequest {
 	userId: string;
@@ -23,20 +25,20 @@ interface SignUpRequest {
 	level: number;
 }
 
-const passwordRegex =
-	/^(?=.*[a-z])(?=.*\d)(?=.*[~․!@#$%^&*()_\-+=\]{}|\\;:'"<>,.?/]).{8,}$/;
+const passwordRegex = /^(?=.*[a-zA-Z0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
-const APISignUp = async (data: SignUpRequest): Promise<number> => {
+const APISignUp = async (data: SignUpRequest): Promise<void> => {
 	try {
-		const response = await DefaultAPI.post("/auth/signup", data, {
+		await DefaultAPI.post("/auth/signup", data, {
 			withCredentials: true
 		});
-		return response.status;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
-			console.error("Axios Error:", error.response?.data || error.message);
-		} else {
-			console.error("General Error:", error);
+			if (error.response) {
+				OpenToast({ message: error.response.data.message, status: "error" });
+			} else {
+				OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+			}
 		}
 		throw error;
 	}
@@ -53,42 +55,68 @@ const SignUp: React.FC = () => {
 	const [level, setLevel] = useState<number>(1);
 	const [github, setGithub] = useState<string>("");
 
-	const [verifyFlag, setVerifyFlag] = useState<boolean>(true);
-	const [syncPassword, setSyncPassword] = useState<boolean>(true);
-
-	const checkPasswordVerify = (e: ChangeEvent<HTMLInputElement>) => {
-		const input = e.target.value;
-		setPassword(input);
-		if (passwordRegex.test(input)) {
-			setVerifyFlag(false);
-		} else {
-			setVerifyFlag(true);
-		}
-	};
+	const [duplication, setDuplication] = useState<boolean>(false);
+	const [verifyPassword, setVerifyPassword] = useState<boolean>(true);
+	const [syncPassword, setSyncPassword] = useState<boolean>(false);
 
 	useEffect(() => {
 		setSyncPassword(password !== checkPassword);
 	}, [password, checkPassword]);
 
-	const checkDuplicateID = () => {
-		console.log("check ID is already exists");
-		// API 구현시 추가
+	const checkPasswordVerify = (e: ChangeEvent<HTMLInputElement>) => {
+		const input = e.target.value;
+		setPassword(input);
+		if (passwordRegex.test(input)) {
+			setVerifyPassword(false);
+		} else {
+			setVerifyPassword(true);
+		}
 	};
 
-	const handleSignUp = () => {
+	const checkDuplicateID = async () => {
+		try {
+			const response = await DefaultAPI.post(
+				"/auth/checkId",
+				{ id: id },
+				{ withCredentials: true }
+			);
+			if (response.status === 200) {
+				setDuplication(false);
+				openToast({ message: "사용 가능한 아이디 입니다.", status: "success" });
+			} else {
+				setDuplication(true);
+			}
+		} catch (error) {
+			if (axios.isAxiosError(error)) {
+				if (error.response) {
+					OpenToast({ message: error.response.data.message, status: "error" });
+				} else {
+					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+				}
+			}
+		}
+	};
+
+	const handleSignUp = async () => {
 		// ID 중복 확인 로직 추가 필요
 		// Password 확인
-		if (!verifyFlag && !syncPassword) {
+		if (!duplication && !syncPassword && !verifyPassword) {
 			if (level && id) {
 				const signUpInfo = {
 					userId: id,
 					password: password,
 					passwordCheck: checkPassword,
+					nickName: name,
 					level: level
 				};
-				APISignUp(signUpInfo);
-				userContext.setIsLoggedIn(true);
-				navigate("/");
+				try {
+					await APISignUp(signUpInfo);
+					userContext.setIsLoggedIn(true);
+					navigate("/");
+				} catch (error) {
+					console.log(error);
+					OpenToast({ message: "회원가입에 실패했습니다.", status: "error" });
+				}
 			}
 		}
 	};
@@ -125,7 +153,7 @@ const SignUp: React.FC = () => {
 			<FormControl
 				isRequired
 				mb={5}
-				isInvalid={verifyFlag && password.length > 0}
+				isInvalid={verifyPassword && password.length > 0}
 			>
 				<FormLabel color="navy" fontWeight="Bold" fontSize="lg">
 					Password
