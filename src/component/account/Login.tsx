@@ -24,13 +24,12 @@ interface LoginResponse {
 	nickName: string;
 }
 
-const errorMapping: Record<string, string> = {
-	"인증 정보가 일치 하지 않습니다.": "비밀번호를 확인해주세요.",
-	"사용자를 찾을 수 없습니다.": "아이디를 확인해주세요."
+const errorCodeMapping: Record<number, string> = {
+	4010: "아이디 및 비밀번호를 확인해주세요."
 };
 
-const handleErrorMessage = (serverMessage: string): string => {
-	return errorMapping[serverMessage] || "관리자에게 문의하세요.";
+const handleErrorMessage = (statusCode: number): string => {
+	return errorCodeMapping[statusCode] || "관리자에게 문의하세요.";
 };
 
 const Login: React.FC = () => {
@@ -64,9 +63,9 @@ const Login: React.FC = () => {
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				if (error.response) {
-					const getResponese = error.response.data;
+					const getResponse = error.response.data;
 					openToast({
-						message: handleErrorMessage(getResponese.message),
+						message: handleErrorMessage(getResponse.status),
 						status: "error"
 					});
 				} else {

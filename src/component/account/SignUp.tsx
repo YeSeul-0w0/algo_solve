@@ -25,6 +25,15 @@ interface SignUpRequest {
 	level: number;
 }
 
+const errorCodeMapping: Record<number, string> = {
+	4010: "이미 사용 중인 아이디 입니다.",
+	4000: "입력하신 정보를 확인해주세요."
+};
+
+const handleErrorMessage = (statusCode: number): string => {
+	return errorCodeMapping[statusCode] || "관리자에게 문의하세요.";
+};
+
 const passwordRegex = /^(?=.*[a-zA-Z0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
 const APISignUp = async (data: SignUpRequest): Promise<void> => {
@@ -35,7 +44,12 @@ const APISignUp = async (data: SignUpRequest): Promise<void> => {
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
 			if (error.response) {
-				OpenToast({ message: error.response.data.message, status: "error" });
+				const getResponse = error.response.data;
+				console.log(getResponse);
+				openToast({
+					message: handleErrorMessage(getResponse.status),
+					status: "error"
+				});
 			} else {
 				OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
 			}
@@ -89,7 +103,11 @@ const SignUp: React.FC = () => {
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				if (error.response) {
-					OpenToast({ message: error.response.data.message, status: "error" });
+					const getResponse = error.response.data;
+					OpenToast({
+						message: handleErrorMessage(getResponse.status),
+						status: "error"
+					});
 				} else {
 					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
 				}
