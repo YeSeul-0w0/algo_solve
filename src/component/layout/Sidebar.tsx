@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Button, Divider, Flex, Text, VStack } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 const ROUTE = {
 	overview: "/",
@@ -44,7 +44,7 @@ const Sidebar: React.FC = () => {
 		localStorage.removeItem("userName");
 		localStorage.removeItem("isLoggedIn");
 
-		userContext.setUserName("");
+		userContext.setNickName("");
 		userContext.setIsLoggedIn(false);
 		userContext.setAccessToken("");
 	};

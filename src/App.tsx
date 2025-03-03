@@ -2,7 +2,7 @@ import React from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import Router from "./component/Router";
 import Theme from "./config/Theme";
-import { UserProvider } from "./component/context/UserContext";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
 	return (

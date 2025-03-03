@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Divider } from "@chakra-ui/react";
-import CalculatingDate from "../../../config/CalculatingDate";
-import dummyData from "../../../config/dummy_data.json";
+import CalculatingDate from "../../../utils/CalculatingDate";
+import dummyData from "../../../data/dummy_data.json";
 import StudyDate from "./StudyDate";
 
 interface Problem {

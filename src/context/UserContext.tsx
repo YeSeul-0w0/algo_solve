@@ -1,8 +1,8 @@
 import { createContext, useState, ReactNode, useEffect } from "react";
 
 interface UserContextProps {
-	userName: string;
-	setUserName: (name: string) => void;
+	nickName: string;
+	setNickName: (name: string) => void;
 	isLoggedIn: boolean;
 	setIsLoggedIn: (status: boolean) => void;
 	accessToken: string;
@@ -18,18 +18,18 @@ interface UserProviderProps {
 }
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-	const storedUserName = localStorage.getItem("userName");
+	const storedUserNickName = localStorage.getItem("userName");
 	const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
 
-	const [userName, setUserName] = useState(storedUserName || "");
+	const [nickName, setNickName] = useState(storedUserNickName || "");
 	const [isLoggedIn, setIsLoggedIn] = useState(storedIsLoggedIn === "true");
 	const [accessToken, setAccessToken] = useState("");
 
 	useEffect(() => {
-		if (userName) {
-			localStorage.setItem("userName", userName);
+		if (nickName) {
+			localStorage.setItem("userName", nickName);
 		}
-	}, [userName]);
+	}, [nickName]);
 
 	useEffect(() => {
 		localStorage.setItem("isLoggedIn", String(isLoggedIn));
@@ -38,8 +38,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 	return (
 		<UserContext.Provider
 			value={{
-				userName,
-				setUserName,
+				nickName,
+				setNickName,
 				isLoggedIn,
 				setIsLoggedIn,
 				accessToken,

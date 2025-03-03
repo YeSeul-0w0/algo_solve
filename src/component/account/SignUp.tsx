@@ -14,11 +14,10 @@ import {
 import DefaultAPI from "../../api/DefaultAPI";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
-import OpenToast from "../../config/OpenToast";
-import openToast from "../../config/OpenToast";
+import { UserContext } from "../../context/UserContext";
+import openToast from "../../utils/OpenToast";
 
-interface SignUpRequest {
+interface signUpRequest {
 	userId: string;
 	password: string;
 	passwordCheck: string;
@@ -36,7 +35,7 @@ const handleErrorMessage = (statusCode: number): string => {
 
 const passwordRegex = /^(?=.*[a-zA-Z0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
-const APISignUp = async (data: SignUpRequest): Promise<void> => {
+const apiSignUp = async (data: signUpRequest): Promise<void> => {
 	try {
 		await DefaultAPI.post("/auth/signup", data, {
 			withCredentials: true
@@ -45,13 +44,12 @@ const APISignUp = async (data: SignUpRequest): Promise<void> => {
 		if (axios.isAxiosError(error)) {
 			if (error.response) {
 				const getResponse = error.response.data;
-				console.log(getResponse);
 				openToast({
 					message: handleErrorMessage(getResponse.status),
 					status: "error"
 				});
 			} else {
-				OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+				openToast({ message: "관리자에게 문의하세요.", status: "error" });
 			}
 		}
 		throw error;
@@ -104,20 +102,18 @@ const SignUp: React.FC = () => {
 			if (axios.isAxiosError(error)) {
 				if (error.response) {
 					const getResponse = error.response.data;
-					OpenToast({
+					openToast({
 						message: handleErrorMessage(getResponse.status),
 						status: "error"
 					});
 				} else {
-					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+					openToast({ message: "관리자에게 문의하세요.", status: "error" });
 				}
 			}
 		}
 	};
 
 	const handleSignUp = async () => {
-		// ID 중복 확인 로직 추가 필요
-		// Password 확인
 		if (!duplication && !syncPassword && !verifyPassword) {
 			if (level && id) {
 				const signUpInfo = {
@@ -128,11 +124,11 @@ const SignUp: React.FC = () => {
 					level: level
 				};
 				try {
-					await APISignUp(signUpInfo);
+					await apiSignUp(signUpInfo);
 					userContext.setIsLoggedIn(true);
 					navigate("/");
 				} catch (error) {
-					OpenToast({ message: "회원가입에 실패했습니다.", status: "error" });
+					openToast({ message: "회원가입에 실패했습니다.", status: "error" });
 				}
 			}
 		}

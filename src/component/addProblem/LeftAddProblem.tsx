@@ -13,8 +13,8 @@ import {
 	Button,
 	Flex
 } from "@chakra-ui/react";
-import CalculatingDate from "../../config/CalculatingDate";
-import levelInfo from "../../config/staic_data.json";
+import CalculatingDate from "../../utils/CalculatingDate";
+import levelInfo from "../../data/staic_data.json";
 
 interface LevelType {
 	level: {

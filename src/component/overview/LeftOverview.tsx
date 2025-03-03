@@ -12,8 +12,8 @@ import {
 	Tbody,
 	Td
 } from "@chakra-ui/react";
-import dummyData from "../../config/dummy_data.json";
-import { UserContext } from "../context/UserContext";
+import dummyData from "../../data/dummy_data.json";
+import { UserContext } from "../../context/UserContext";
 
 interface Person {
 	name: string;
@@ -32,7 +32,7 @@ interface Overview {
 
 const LeftOverview: React.FC = () => {
 	const userContext = useContext(UserContext)!;
-	const userName: String = userContext.userName;
+	const userName: String = userContext.nickName;
 
 	const [isAttend, setIsAttend] = React.useState(false);
 	const [isSolveB, setIsSolveB] = React.useState(false);

@@ -7,19 +7,18 @@ import {
 	FormLabel,
 	Input
 } from "@chakra-ui/react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import DefaultAPI from "../../api/DefaultAPI";
 import axios from "axios";
-import OpenToast from "../../config/OpenToast";
-import openToast from "../../config/OpenToast";
+import openToast from "../../utils/OpenToast";
 
-interface LoginRequest {
+interface loginRequest {
 	userId: string;
 	password: string;
 }
 
-interface LoginResponse {
+interface loginResponse {
 	accessToken: string;
 	nickName: string;
 }
@@ -44,22 +43,23 @@ const Login: React.FC = () => {
 		// userContext.setUserName("Guest");
 		// userContext.setIsLoggedIn(true);
 		// navigate("/");
-		OpenToast({ message: "현재 지원하지 않는 기능입니다.", status: "info" });
+		openToast({ message: "현재 지원하지 않는 기능입니다.", status: "info" });
 	};
 
 	const handleSignUp = () => {
 		navigate("/sign_up");
 	};
 
-	const APILogin = async (data: LoginRequest): Promise<void> => {
+	const apiLogin = async (data: loginRequest): Promise<void> => {
 		try {
-			const response = await DefaultAPI.post<LoginResponse>(
+			const response = await DefaultAPI.post<loginResponse>(
 				"/auth/login",
 				data,
 				{ withCredentials: true }
 			);
-			userContext.setAccessToken(response.data.accessToken);
-			userContext.setUserName(response.data.nickName);
+			const getResponse = response?.data;
+			userContext.setAccessToken(getResponse.accessToken);
+			userContext.setNickName(getResponse.nickName);
 		} catch (error) {
 			if (axios.isAxiosError(error)) {
 				if (error.response) {
@@ -69,14 +69,14 @@ const Login: React.FC = () => {
 						status: "error"
 					});
 				} else {
-					OpenToast({ message: "관리자에게 문의하세요.", status: "error" });
+					openToast({ message: "관리자에게 문의하세요.", status: "error" });
 				}
 			}
 			throw error;
 		}
 	};
 
-	const LoginInfo: LoginRequest = {
+	const loginInfo: loginRequest = {
 		userId: userId,
 		password: userPassword
 	};
@@ -84,7 +84,7 @@ const Login: React.FC = () => {
 	const handleLogin = async () => {
 		setLoading(true);
 		try {
-			await APILogin(LoginInfo);
+			await apiLogin(loginInfo);
 			userContext.setIsLoggedIn(true);
 			navigate("/");
 		} catch (error) {
