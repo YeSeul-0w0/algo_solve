@@ -1,6 +1,22 @@
 {
-  "level": {
-    "backjoon": ["실버 3~5", "골드 4~5", "골드 1~3"],
-    "programmers": ["레벨 1", "레벨 2", "레벨 3", "레벨 4"]
+  "platformInfo": {
+    "boj": {
+      "mainLevel": ["브론즈", "실버", "골드", "플레티넘"],
+      "subLevel": ["1","2","3","4","5"],
+      "backgroundColor":"deepBeige",
+      "borderColor": "beige"
+    },
+    "programmers": {
+      "mainLevel": ["레벨 1", "레벨 2", "레벨 3", "레벨 4"],
+      "subLevel": "",
+      "backgroundColor":"navy",
+      "borderColor": "deepBlue"
+    },
+    "leetCode": {
+      "mainLevel": ["Easy", "Medium", "Hard"],
+      "subLevel": "",
+      "backgroundColor":"orange",
+      "borderColor": "yellow"
+    }
   }
 }
