@@ -67,7 +67,6 @@ const LeftAddProblem: React.FC = () => {
 		};
 
 		setProblems([...problems, newProblem]);
-		console.log(problems);
 		setPlatform("boj");
 		setProblemName("");
 		setProblemId("");
