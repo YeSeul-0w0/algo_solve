@@ -30,17 +30,33 @@ interface Overview {
 	programmers: number;
 }
 
+const mappingPlatformName: Record<string, string> = {
+	boj: "백준",
+	programmers: "프로그래머스",
+	leetCode: "릿코드"
+};
+
 const LeftOverview: React.FC = () => {
 	const userContext = useContext(UserContext)!;
 	const userName: String = userContext.nickName;
 
 	const [isAttend, setIsAttend] = React.useState(false);
-	const [isSolveB, setIsSolveB] = React.useState(false);
-	const [isSolveP, setIsSolveP] = React.useState(false);
-	const handleToggle =
+	const [isSolved, setIsSolved] = React.useState<Record<string, boolean>>({
+		boj: false,
+		programmers: false,
+		leetCode: false
+	});
+	const handleAttend =
 		(setter: React.Dispatch<React.SetStateAction<boolean>>) => () => {
 			setter(prev => !prev);
 		};
+
+	const handleSolved = (platform: string) => {
+		setIsSolved(prev => ({
+			...prev,
+			[platform]: !prev[platform]
+		}));
+	};
 
 	const buttonStyle = (isActive: boolean) => ({
 		bg: isActive ? "lightBeige" : "transparent",
@@ -60,7 +76,7 @@ const LeftOverview: React.FC = () => {
 					{userName}님 정보
 				</Text>
 				<Grid
-					templateColumns="0.8fr 1fr 1fr 1fr 1fr"
+					templateColumns="0.8fr 1fr 1fr 1fr 1fr 1fr"
 					templateRows="1fr 1fr 1fr"
 					p={5}
 					gap={3}
@@ -72,7 +88,7 @@ const LeftOverview: React.FC = () => {
 					</GridItem>
 					<GridItem colSpan={4} alignContent="center">
 						<Button
-							onClick={handleToggle(setIsAttend)}
+							onClick={handleAttend(setIsAttend)}
 							{...buttonStyle(isAttend)}
 						>
 							{" "}
@@ -82,24 +98,28 @@ const LeftOverview: React.FC = () => {
 					<Text fontWeight="semibold" fontSize="md" alignContent="center">
 						풀이여부
 					</Text>
-					<GridItem colSpan={2} display="flex" gap={5} alignItems="center">
-						<Text fontSize="md">백준</Text>
-						<Button
-							onClick={handleToggle(setIsSolveB)}
-							{...buttonStyle(isSolveB)}
-						>
-							{isSolveB ? "Yes" : "No"}
-						</Button>
-					</GridItem>
-					<GridItem colSpan={2} display="flex" gap={5} alignItems="center">
-						<Text fontSize="md">프로그래머스</Text>
-						<Button
-							onClick={handleToggle(setIsSolveP)}
-							{...buttonStyle(isSolveP)}
-						>
-							{isSolveP ? "Yes" : "No"}
-						</Button>
-					</GridItem>
+					{Object.keys(isSolved).map(platform => (
+						<GridItem colSpan={3} display="flex" gap={5} alignItems="center">
+							<Text fontSize="md">{mappingPlatformName[platform]}</Text>
+							<Button
+								onClick={() => handleSolved(platform)}
+								{...buttonStyle(isSolved[platform])}
+							>
+								{isSolved[platform] ? "Yes" : "No"}
+							</Button>
+						</GridItem>
+					))}
+
+					{/*<GridItem colSpan={2} display="flex" gap={5} alignItems="center">*/}
+					{/*	<Text fontSize="md">프로그래머스</Text>*/}
+					{/*	<Button*/}
+					{/*		onClick={handleAttend(setIsSolveP)}*/}
+					{/*		{...buttonStyle(isSolveP)}*/}
+					{/*	>*/}
+					{/*		{isSolveP ? "Yes" : "No"}*/}
+					{/*	</Button>*/}
+					{/*</GridItem>*/}
+
 					<GridItem colSpan={5} display="flex" justifyContent="flex-end">
 						<Button variant="solid" bg="deepBeige">
 							{" "}
