@@ -46,6 +46,7 @@ const LeftOverview: React.FC = () => {
 		programmers: false,
 		leetCode: false
 	});
+
 	const handleAttend =
 		(setter: React.Dispatch<React.SetStateAction<boolean>>) => () => {
 			setter(prev => !prev);
@@ -76,8 +77,8 @@ const LeftOverview: React.FC = () => {
 					{userName}님 정보
 				</Text>
 				<Grid
-					templateColumns="0.8fr 1fr 1fr 1fr 1fr 1fr"
-					templateRows="1fr 1fr 1fr"
+					templateColumns="repeat(6, 1fr)"
+					templateRows="1fr 1fr"
 					p={5}
 					gap={3}
 				>
@@ -86,7 +87,7 @@ const LeftOverview: React.FC = () => {
 							참석
 						</Text>
 					</GridItem>
-					<GridItem colSpan={4} alignContent="center">
+					<GridItem colSpan={5} alignContent="center">
 						<Button
 							onClick={handleAttend(setIsAttend)}
 							{...buttonStyle(isAttend)}
@@ -95,11 +96,20 @@ const LeftOverview: React.FC = () => {
 							{isAttend ? "Yes" : "No"}
 						</Button>
 					</GridItem>
-					<Text fontWeight="semibold" fontSize="md" alignContent="center">
-						풀이여부
-					</Text>
+					<GridItem colSpan={6}>
+						<Text fontWeight="semibold" fontSize="md" alignContent="center">
+							풀이여부
+						</Text>
+					</GridItem>
+
 					{Object.keys(isSolved).map(platform => (
-						<GridItem colSpan={3} display="flex" gap={5} alignItems="center">
+						<GridItem
+							colSpan={2}
+							display="flex"
+							alignItems="center"
+							justifyContent="center"
+							gap={2}
+						>
 							<Text fontSize="md">{mappingPlatformName[platform]}</Text>
 							<Button
 								onClick={() => handleSolved(platform)}
@@ -110,17 +120,7 @@ const LeftOverview: React.FC = () => {
 						</GridItem>
 					))}
 
-					{/*<GridItem colSpan={2} display="flex" gap={5} alignItems="center">*/}
-					{/*	<Text fontSize="md">프로그래머스</Text>*/}
-					{/*	<Button*/}
-					{/*		onClick={handleAttend(setIsSolveP)}*/}
-					{/*		{...buttonStyle(isSolveP)}*/}
-					{/*	>*/}
-					{/*		{isSolveP ? "Yes" : "No"}*/}
-					{/*	</Button>*/}
-					{/*</GridItem>*/}
-
-					<GridItem colSpan={5} display="flex" justifyContent="flex-end">
+					<GridItem colSpan={6} display="flex" justifyContent="flex-end">
 						<Button variant="solid" bg="deepBeige">
 							{" "}
 							등록{" "}
