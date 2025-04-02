@@ -36,6 +36,9 @@ const mappingPlatformName: Record<string, string> = {
 	leetCode: "릿코드"
 };
 
+const totalDummy = dummyData["overview"]["total"] as Overview;
+const personDummy = dummyData["overview"]["people"] as DummyUser;
+
 const LeftOverview: React.FC = () => {
 	const userContext = useContext(UserContext)!;
 	const userName: String = userContext.nickName;
@@ -66,9 +69,6 @@ const LeftOverview: React.FC = () => {
 		size: "sm",
 		_hover: { bg: "beige" }
 	});
-
-	const totalDummy = dummyData["overview"]["total"] as Overview;
-	const personDummy = dummyData["overview"]["people"] as DummyUser;
 
 	return (
 		<Box>
